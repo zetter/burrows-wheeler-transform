@@ -1,4 +1,5 @@
 class BWT
+  TERMINATOR = '$'
 
   # encode applies the Burrows–Wheeler transformation to a string
   #
@@ -34,6 +35,13 @@ class BWT
   # annb$aa
 
   def encode(string)
+    terminated_string = string.concat(TERMINATOR)
+    chars = terminated_string.chars.to_a
+    rotational_permutations = chars.each_index.map do |index|
+      chars.rotate(index)
+    end
+    sorted_permutations = rotational_permutations.sort
+    sorted_permutations.map(&:last).join
   end
 
   # decode applies the reverse Burrows–Wheeler transformation to a string
@@ -92,5 +100,14 @@ class BWT
   # banana
 
   def decode(encoded_string)
+    n = encoded_string.length
+    possible_strings = Array.new(n) {''}
+    n.times do
+      encoded_string.each_char.with_index do |char, index|
+        possible_strings[index].prepend(char)
+      end
+      possible_strings.sort!
+    end
+    possible_strings.find{|string| string.end_with?(TERMINATOR) }.chomp(TERMINATOR)
   end
 end
