@@ -14,6 +14,10 @@ describe BWT do
     it "encodes 'banana'" do
       expect(subject.encode('banana')).to eq('annb$aa')
     end
+
+    it "encodes a longer string" do
+      expect(subject.encode("Isn't the Burrows-Wheeler Transform neat?")).to eq("ermt?nst $ -rehnhelstWers afreToruwnI'a Bo")
+    end
   end
 
   describe '#decode' do
@@ -27,6 +31,10 @@ describe BWT do
 
     it "decodes 'banana'" do
       expect(subject.decode('annb$aa')).to eq('banana')
+    end
+
+    it "decodes a longer string" do
+      expect(subject.decode("ermt?nst $ -rehnhelstWers afreToruwnI'a Bo")).to eq("Isn't the Burrows-Wheeler Transform neat?")
     end
   end
 end
