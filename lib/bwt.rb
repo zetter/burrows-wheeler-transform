@@ -100,13 +100,8 @@ class BWT
   # banana
 
   def decode(encoded_string)
-    n = encoded_string.length
-    possible_strings = Array.new(n) {''}
-    n.times do
-      encoded_string.each_char.with_index do |char, index|
-        possible_strings[index].prepend(char)
-      end
-      possible_strings.sort!
+    possible_strings = encoded_string.chars.inject([]) do |built_strings|
+      encoded_string.chars.zip(built_strings).map(&:join).sort
     end
     possible_strings.find{|string| string.end_with?(TERMINATOR) }.chomp(TERMINATOR)
   end
