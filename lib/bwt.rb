@@ -34,14 +34,8 @@ class BWT
   # Return the string made from taking the last character from every item in the list:
   # annb$aa
 
-  def encode(string)
-    terminated_string = string.concat(TERMINATOR)
-    chars = terminated_string.chars.to_a
-    rotational_permutations = chars.each_index.map do |index|
-      chars.rotate(index)
-    end
-    sorted_permutations = rotational_permutations.sort
-    sorted_permutations.map(&:last).join
+  def encode(s)
+    c=s.split(//)<<'$';c.each_index.map{|i|c.rotate i}.sort.map(&:last).join
   end
 
   # decode applies the reverse Burrows–Wheeler transformation to a string
@@ -99,10 +93,7 @@ class BWT
   # return the string with the terminator removed :
   # banana
 
-  def decode(encoded_string)
-    possible_strings = encoded_string.chars.inject([]) do |built_strings|
-      encoded_string.chars.zip(built_strings).map(&:join).sort
-    end
-    possible_strings.find{|string| string.end_with?(TERMINATOR) }.chomp(TERMINATOR)
+  def decode(e)
+    c=e.chars;c.inject([]){|b|c.zip(b).map(&:join).sort}.find{|s|s[-1]=='$'}[0..-2]
   end
 end
