@@ -21,5 +21,5 @@ Implement the `encode` and `decode` methods in `lib/bwt.rb` so that the specs pa
 
 ## Notes
 
-The transform relies on sorting strings. Implementations in other languages may sort strings differently to Ruby and thus produce differnet encodings.
+The transform relies on sorting strings. Implementations in other languages may sort strings differently to Ruby and thus produce different encodings.
 
